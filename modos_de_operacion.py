@@ -40,6 +40,11 @@ text3= Label(text="Operation mode")
 text3.place(x=240,y=160)
 combo2.place(x=315,y=160)
 combo2['values']=('ECB','CBC', 'CFB','OFB','CTR',)
+combo3=ttk.Combobox(raiz)
+text6= Label(text="Ciphered or Deciphered")
+text6.place(x=240,y=200)
+combo3.place(x=315,y=200)
+combo3['values']=('Cipher','Decipher')
 text4=Label(raiz, text = "Key:")
 text4.place(x=10,y=160)
 blank1 = Entry(raiz)
@@ -50,12 +55,13 @@ blank2 = Entry(raiz)
 blank2.place(x=55,y=140)
 
 def seleccionar_funcion():
-        combo_sel1=combo.get()
-        combo_sel2=combo2.get()
+        combo_sel1 = combo.get()
+        combo_sel2 = combo2.get()
+        combo_sel3 = combo3.get()
         keyword = str(blank1.get())
         vector = str(blank2.get())
        
-        if combo_sel1 == "Spanish" and combo_sel == "Vigenére" and combo_sel2 == "Ciphered":
+        if combo_sel1 == "DES" and combo_sel2 == "ECB":
             n=27
             if combo_sel2 == "Ciphered":
                 with open('elvis_paravigenere.txt', 'r') as file:
