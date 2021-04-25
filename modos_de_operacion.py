@@ -62,48 +62,39 @@ def seleccionar_funcion():
         vector = str(blank2.get())
        
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
-            n=27
-            if combo_sel2 == "Ciphered":
-                with open('elvis_paravigenere.txt', 'r') as file:
-                 string = file.read().replace('\n', '')
-                 key = generateKey(string, keyword)
-                cipherText(string,key)
-            elif combo_sel2 == "Deciphered":
-                with open('elvis_paravigenere_C.vig', 'r') as file:
-                 cipher_text = file.read().replace('\n', '')
-                 key = generateKey(string, keyword)
-                 originalText(cipher_text,key)
+            if combo_sel3 == "Cipher":
+                pass
+            elif combo_sel2 == "Decipher":
+                pass
 
-        elif combo_sel1 == "Spanish" and combo_sel == "Affine":
-            #n=27
-            if combo_sel2 == "Ciphered":
-                Encrypt(n,alpha,beta)
-            elif combo_sel2 == "Deciphered":
-                Decrypt(n,alpha,beta)
-        elif combo_sel1 == "English" and combo_sel == "Vigenére":
-            n=26
-            if combo_sel2 == "Ciphered":
-                with open('elvis_paravigenere.txt', 'r') as file:
-                 string = file.read().replace('\n', '')
-                 key = generateKey(string, keyword)
-                cipherText(string,key)
-            elif combo_sel2 == "Deciphered":
-                with open('elvis_paravigenere.txt', 'r') as file:
-                 string = file.read().replace('\n', '')
-                with open('elvis_paravigenere_C.vig', 'r') as file:
-                 cipher_text = file.read().replace('\n', '')
-                 key = generateKey(string, keyword)
-                 originalText(cipher_text,key)
+        elif combo_sel1 == "DES" and combo_sel2 == "CBC":
+            if combo_sel3 == "Cipher":
+                pass
+            elif combo_sel2 == "Decipher":
+                pass
 
-        elif combo_sel1 == "English" and combo_sel == "Affine":
-            #n=26
-            if combo_sel2 == "Ciphered":
-                Encrypt(n,alpha,beta)
-            elif combo_sel2 == "Deciphered":
-                Decrypt(n,alpha,beta)
+        elif combo_sel1 == "DES" and combo_sel2 == "CFB":
+            
+            if combo_sel3 == "Cipher":
+                pass
+            elif combo_sel2 == "Decipher":
+                pass
+
+        elif combo_sel1 == "DES" and combo_sel2 == "OFB":
+            if combo_sel3 == "Cipher":
+                pass
+            elif combo_sel2 == "Decipher":
+                pass
+
+        elif combo_sel1 == "DES" and combo_sel2 == "CTR":
+            if combo_sel3 == "Cipher":
+                pass
+            elif combo_sel2 == "Decipher":
+                pass
+        
         else:
             messagebox.showinfo("Error ","You must select an option")
-        return n
+        
 
 def abrirArchivo_a_Usar():
     raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
