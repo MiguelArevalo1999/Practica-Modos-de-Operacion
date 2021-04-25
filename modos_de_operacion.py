@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox, filedialog
 from tkinter import ttk
+from Crypto.Cipher import DES
 import tkinter as tk
 import math
 import random
