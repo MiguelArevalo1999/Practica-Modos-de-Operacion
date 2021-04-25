@@ -40,16 +40,16 @@ text2= Label(text="Operation mode")
 text2.place(x=240,y=160)
 combo2.place(x=315,y=160)
 combo2['values']=('ECB','CBC', 'CFB','OFB','CTR',)
-
+text=Label(raiz, text = "Key:")
+text.place(x=10,y=160)
+blank = Entry(raiz)
+blank.place(x=50,y=160)
 
 def seleccionar_funcion():
-        combo_sel1=combo1.get()
+        combo_sel1=combo.get()
         combo_sel=combo.get()
         combo_sel2=combo2.get()
-        alpha=int(blank.get())
-        beta=int(blank1.get())
-        n=int(blank2.get())
-        keyword = str(blank3.get())
+       
         if combo_sel1 == "Spanish" and combo_sel == "Vigenére" and combo_sel2 == "Ciphered":
             n=27
             if combo_sel2 == "Ciphered":
