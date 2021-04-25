@@ -42,17 +42,18 @@ combo2.place(x=315,y=160)
 combo2['values']=('ECB','CBC', 'CFB','OFB','CTR',)
 text4=Label(raiz, text = "Key:")
 text4.place(x=10,y=160)
-blank = Entry(raiz)
-blank.place(x=50,y=160)
+blank1 = Entry(raiz)
+blank1.place(x=50,y=160)
 text5=Label(raiz, text = "Vector:")
 text5.place(x=10,y=140)
-blank = Entry(raiz)
-blank.place(x=55,y=140)
+blank2 = Entry(raiz)
+blank2.place(x=55,y=140)
 
 def seleccionar_funcion():
         combo_sel1=combo.get()
-        combo_sel=combo.get()
         combo_sel2=combo2.get()
+        keyword = str(blank1.get())
+        vector = str(blank2.get())
        
         if combo_sel1 == "Spanish" and combo_sel == "Vigenére" and combo_sel2 == "Ciphered":
             n=27
