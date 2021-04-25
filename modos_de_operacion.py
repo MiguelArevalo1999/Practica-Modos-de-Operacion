@@ -94,6 +94,14 @@ def seleccionar_funcion():
             messagebox.showinfo("Error ","You must select an option")
         return n
 
+def abrirArchivo_a_Usar():
+    raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
+
+abrir=Button(raiz, text="Select File",command=abrirArchivo_a_Usar)
+abrir.place(x=50,y=100)
+
+
+
 sel=Button(raiz, text="Start process",command=seleccionar_funcion)
 sel.place(x=50,y=190)
 
