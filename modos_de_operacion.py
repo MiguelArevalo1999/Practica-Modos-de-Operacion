@@ -73,13 +73,44 @@ def seleccionar_funcion():
        
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
             if combo_sel3 == "Cipher":
-                im = Image.open()
+                im = Image.open(filename)
+                 #Convert image data into pixel value bytes
+                value_vector = im.convert("RGB").tobytes()
+                imlength = len(value_vector)
+                #for i in range(original):
+                    #print(data[i])
+    #Map the pixel value of the filled and encrypted data
+                value_encrypt = trans_format_RGB(des_ecb_encrypt(key, pad(value_vector))[:imlength])
+                #for i in range(original):
+                    #print(new[i])
+                 #Create a new object, store the corresponding value
+                im2 = Image.new(im.mode, im.size)
+                im2.putdata(value_encrypt)
+                # Save the object as an image in the corresponding format
+                im2.save(filename + "_eECB" + "." + "bmp")
+
+
             elif combo_sel2 == "Decipher":
                 pass
 
         elif combo_sel1 == "DES" and combo_sel2 == "CBC":
             if combo_sel3 == "Cipher":
-                pass
+                im = Image.open(filename)
+                value_vector = im.convert("RGB").tobytes()
+
+                # Convert image data to pixel value bytes
+                imlength = len(value_vector)
+
+                # Perform pixel value mapping on the filled and encrypted data
+                value_encrypt = trans_format_RGB(des_cbc_encrypt(key, pad(value_vector))[:imlength])
+
+                # Create a new object, store the corresponding value
+                im2 = Image.new(im.mode, im.size)
+                im2.putdata(value_encrypt)
+
+                # Save the object as an image in the corresponding format
+                im2.save(filename + "_eCBC" + "." + "bmp")
+
             elif combo_sel2 == "Decipher":
                 pass
 
@@ -104,7 +135,26 @@ def seleccionar_funcion():
         
         else:
             messagebox.showinfo("Error ","You must select an option")
-        
+
+
+def pad(data):
+    return data + b"\x00" * (8 - len(data) % 8)
+
+def des_cbc_encrypt(key, data, mode=DES.MODE_CBC):
+    #IV is a random value
+    IV = key_generator(8)
+    aes = DES.new(key, mode, IV)
+    new_data = aes.encrypt(data)
+    return new_data
+
+
+# ECB encryption
+def des_ecb_encrypt(key, data, mode=DES.MODE_ECB):
+    #The default mode is ECB encryption
+    des = DES.new(key, mode)
+    new_data = des.encrypt(data)
+    return new_data
+
 def key_generator(size = 8, chars = string.ascii_lowercase):
     return ''.join(random.choice(chars) for _ in range(size))
 
@@ -121,12 +171,6 @@ def correctKey(key):
         pass
     else:
         messagebox.showinfo("Error ","Unvalid key")
-
-
-
-
-
-
 
 sel=Button(raiz, text="Start process",command=seleccionar_funcion)
 sel.place(x=50,y=190)
