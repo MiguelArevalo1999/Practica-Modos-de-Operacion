@@ -86,8 +86,10 @@ def seleccionar_funcion():
                  #Create a new object, store the corresponding value
                 im2 = Image.new(im.mode, im.size)
                 im2.putdata(value_encrypt)
+                file =  os.path.splitext(filename)
+                
                 # Save the object as an image in the corresponding format
-                im2.save(filename + "_eECB" + "." + "bmp")
+                im2.save(file[0] + "_eECB" + "." + "bmp")
 
 
             elif combo_sel2 == "Decipher":
@@ -109,7 +111,8 @@ def seleccionar_funcion():
                 im2.putdata(value_encrypt)
 
                 # Save the object as an image in the corresponding format
-                im2.save(filename + "_eCBC" + "." + "bmp")
+                file =  os.path.splitext(filename)
+                im2.save(file[0] + "_eCBC" + "." + "bmp")
 
             elif combo_sel2 == "Decipher":
                 pass
