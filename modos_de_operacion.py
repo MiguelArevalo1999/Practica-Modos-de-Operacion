@@ -146,8 +146,8 @@ def pad(data):
 def des_cbc_encrypt(key, data, mode=DES.MODE_CBC):
     #IV is a random value
     IV = key_generator(8)
-    aes = DES.new(key, mode, IV)
-    new_data = aes.encrypt(data)
+    des = DES.new(key, mode, IV)
+    new_data = des.encrypt(data)
     return new_data
 
 
