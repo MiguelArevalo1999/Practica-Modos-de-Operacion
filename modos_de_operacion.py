@@ -6,6 +6,11 @@ from PIL import Image
 import tkinter as tk
 import random
 import string
+import os
+
+def abrirArchivo_a_Usar():
+    raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
+
 
 raiz=Tk()
 raiz.title("Cipher Operation Modes")
@@ -54,6 +59,8 @@ text5=Label(raiz, text = "Vector:")
 text5.place(x=10,y=140)
 blank2 = Entry(raiz)
 blank2.place(x=55,y=140)
+abrir=Button(raiz, text="Select File",command=abrirArchivo_a_Usar)
+abrir.place(x=50,y=100)
 
 def seleccionar_funcion():
         combo_sel1 = combo.get()
@@ -61,11 +68,12 @@ def seleccionar_funcion():
         combo_sel3 = combo3.get()
         key = str(blank1.get())
         vector = str(blank2.get())
+        filename = "Imagen1.bmp"
         correctKey(key)
        
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
             if combo_sel3 == "Cipher":
-                pass
+                im = Image.open()
             elif combo_sel2 == "Decipher":
                 pass
 
@@ -100,6 +108,14 @@ def seleccionar_funcion():
 def key_generator(size = 8, chars = string.ascii_lowercase):
     return ''.join(random.choice(chars) for _ in range(size))
 
+ #Map the image data to RGB
+def trans_format_RGB(data):
+    #tuple: Immutable, ensure that data is not lost
+    red, green, blue = tuple(map(lambda e: [data[i] for i in range(0, len(data)) if i % 3 == e], [0, 1, 2]))
+    pixels = tuple(zip(red, green, blue))
+    return pixels
+
+
 def correctKey(key):
     if len(key) == 8:
         pass
@@ -107,11 +123,8 @@ def correctKey(key):
         messagebox.showinfo("Error ","Unvalid key")
 
 
-def abrirArchivo_a_Usar():
-    raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
 
-abrir=Button(raiz, text="Select File",command=abrirArchivo_a_Usar)
-abrir.place(x=50,y=100)
+
 
 
 
