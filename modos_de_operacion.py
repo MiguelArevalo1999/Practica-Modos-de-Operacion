@@ -158,6 +158,13 @@ def des_ecb_encrypt(key, data, mode=DES.MODE_ECB):
     new_data = des.encrypt(data)
     return new_data
 
+def des_cfb_encrypt(key, data, mode=DES.MODE_CFB):
+    
+    IV = key_generator(8)
+    des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
+    new_data = des.encrypt(data)
+    return new_data
+
 def key_generator(size = 8, chars = string.ascii_lowercase):
     return ''.join(random.choice(chars) for _ in range(size))
 
