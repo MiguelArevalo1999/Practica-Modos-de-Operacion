@@ -15,6 +15,8 @@ ruta= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Im
 ruta1= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eECB.bmp'
 ruta2= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCBC.bmp'
 ruta3= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCFB.bmp'
+ruta4= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eOFB.bmp'
+ruta5= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCTR.bmp'
 raiz=Tk()
 raiz.title("Cipher Operation Modes")
 raiz.resizable(0,0)
@@ -64,9 +66,9 @@ blank2 = Entry(raiz)
 blank2.place(x=55,y=140)
 abrir=Button(raiz, text="Select File",command=abrirArchivo_a_Usar)
 abrir.place(x=50,y=100)
-
+IV=" "
 def seleccionar_funcion():
-        IV=key_generator(8)
+        global IV
         combo_sel1 = combo.get()
         combo_sel2 = combo2.get()
         combo_sel3 = combo3.get()
@@ -77,6 +79,8 @@ def seleccionar_funcion():
         filename1=os.path.basename(ruta1)
         filename2=os.path.basename(ruta2)
         filename3=os.path.basename(ruta3)
+        filename4=os.path.basename(ruta4)
+        filename5=os.path.basename(ruta5)
         #print(filename)
         correctKey(key)
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
@@ -153,9 +157,7 @@ def seleccionar_funcion():
                 # Save the object as an image in the corresponding format
                 file =  os.path.splitext(filename2)
                 im2.save(file[0] + "_dCBC" + "." + "bmp")
-
         elif combo_sel1 == "DES" and combo_sel2 == "CFB":
-
             if combo_sel3 == "Cipher":
                 im = Image.open(filename)
                 value_vector = im.convert("RGB").tobytes()
@@ -180,7 +182,6 @@ def seleccionar_funcion():
 
                     # Convert image data to pixel value bytes
                     imlength = len(value_vector)
-
                     # Perform pixel value mapping on the filled and encrypted data
                     val=des_cfb_desencrypt(key, pad(value_vector),IV)
                     value_desencrypt = trans_format_RGB(val[:imlength])
@@ -192,7 +193,6 @@ def seleccionar_funcion():
                     # Save the object as an image in the corresponding format
                     file =  os.path.splitext(filename3)
                     im2.save(file[0] + "_dCFB" + "." + "bmp")
-
         elif combo_sel1 == "DES" and combo_sel2 == "OFB":
             if combo_sel3 == "Cipher":
                 im = Image.open(filename)
@@ -200,21 +200,32 @@ def seleccionar_funcion():
 
                 # Convert image data to pixel value bytes
                 imlength = len(value_vector)
-
                 # Perform pixel value mapping on the filled and encrypted data
-                value_encrypt = trans_format_RGB(des_ofb_encrypt(key, pad(value_vector))[:imlength])
-
+                val, IV=des_ofb_encrypt(key, pad(value_vector))
+                value_encrypt = trans_format_RGB(val[:imlength])
                 # Create a new object, store the corresponding value
                 im2 = Image.new(im.mode, im.size)
                 im2.putdata(value_encrypt)
-
                 # Save the object as an image in the corresponding format
                 file =  os.path.splitext(filename)
                 im2.save(file[0] + "_eOFB" + "." + "bmp")
 
             elif combo_sel3 == "Decipher":
-                pass
+                im = Image.open(filename4)
+                value_vector = im.convert("RGB").tobytes()
+                # Convert image data to pixel value bytes
+                imlength = len(value_vector)
+                # Perform pixel value mapping on the filled and encrypted data
+                val=des_ofb_desencrypt(key, pad(value_vector),IV)
+                value_desencrypt = trans_format_RGB(val[:imlength])
 
+                # Create a new object, store the corresponding value
+                im2 = Image.new(im.mode, im.size)
+                im2.putdata(value_desencrypt)
+
+                # Save the object as an image in the corresponding format
+                file =  os.path.splitext(filename4)
+                im2.save(file[0] + "_dOFB" + "." + "bmp")
         elif combo_sel1 == "DES" and combo_sel2 == "CTR":
             if combo_sel3 == "Cipher":
                 im = Image.open(filename)
@@ -224,8 +235,9 @@ def seleccionar_funcion():
                 imlength = len(value_vector)
 
                 # Perform pixel value mapping on the filled and encrypted data
-                value_encrypt = trans_format_RGB(des_ofb_encrypt(key, pad(value_vector))[:imlength])
-
+                value_encrypt = trans_format_RGB(des_ctr_encrypt(key, pad(value_vector))[:imlength])
+                #val, IV=des_ofb_encrypt(key, pad(value_vector))
+                #value_encrypt = trans_format_RGB(val[:imlength])
                 # Create a new object, store the corresponding value
                 im2 = Image.new(im.mode, im.size)
                 im2.putdata(value_encrypt)
@@ -234,8 +246,23 @@ def seleccionar_funcion():
                 file =  os.path.splitext(filename)
                 im2.save(file[0] + "_eCTR" + "." + "bmp")
             elif combo_sel3 == "Decipher":
-                pass
+                im = Image.open(filename5)
+                value_vector = im.convert("RGB").tobytes()
 
+                # Convert image data to pixel value bytes
+                imlength = len(value_vector)
+
+                # Perform pixel value mapping on the filled and encrypted data
+                val=des_ctr_desencrypt(key, pad(value_vector),IV)
+                value_desencrypt = trans_format_RGB(val[:imlength])
+
+                # Create a new object, store the corresponding value
+                im2 = Image.new(im.mode, im.size)
+                im2.putdata(value_desencrypt)
+
+                # Save the object as an image in the corresponding format
+                file =  os.path.splitext(filename5)
+                im2.save(file[0] + "_dCTR" + "." + "bmp")
         else:
             messagebox.showinfo("Error ","You must select an option")
 
@@ -276,7 +303,7 @@ def des_cfb_encrypt(key, data, mode=DES.MODE_CFB):
     des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
     new_data = des.encrypt(data)
     return new_data, IV
-    
+
 def des_cfb_desencrypt(key, data, IV, mode=DES.MODE_CFB):
     des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
     new_data = des.decrypt(data)
@@ -289,12 +316,21 @@ def des_ofb_encrypt(key, data, mode=DES.MODE_OFB):
     new_data = des.encrypt(data)
     return new_data, IV
 
+def des_ofb_desencrypt(key, data, IV, mode=DES.MODE_OFB):
+    des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
+    new_data = des.decrypt(data)
+    return new_data
+
 def des_ctr_encrypt(key, data, mode=DES.MODE_CTR):
-    global IV
     IV = key_generator(8)
     des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
     new_data = des.encrypt(data)
-    return new_data, IV
+    return new_data
+
+def des_ctr_desencrypt(key, data, IV, mode=DES.MODE_CTR):
+    des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
+    new_data = des.decrypt(data)
+    return new_data
 
 def key_generator(size = 8, chars = string.ascii_lowercase):
     return ''.join(random.choice(chars) for _ in range(size))
