@@ -11,6 +11,7 @@ import os
 def abrirArchivo_a_Usar():
     raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
 
+ruta= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\modos_de_operacion.py'
 
 raiz=Tk()
 raiz.title("Cipher Operation Modes")
@@ -68,9 +69,12 @@ def seleccionar_funcion():
         combo_sel3 = combo3.get()
         key = str(blank1.get())
         vector = str(blank2.get())
-        filename = "Imagen1.bmp" #Aqui tirame paro jaja para obtener el nombre del archivo seleccionado y que se guarde en filename
+        #filename = "Imagen1.bmp" #Aqui tirame paro jaja para obtener el nombre del archivo seleccionado y que se guarde en filename
+        filename=os.path.basename(ruta)
+
+        print(filename)
         correctKey(key)
-       
+
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
             if combo_sel3 == "Cipher":
                 im = Image.open(filename)
@@ -87,7 +91,7 @@ def seleccionar_funcion():
                 im2 = Image.new(im.mode, im.size)
                 im2.putdata(value_encrypt)
                 file =  os.path.splitext(filename)
-                
+
                 # Save the object as an image in the corresponding format
                 im2.save(file[0] + "_eECB" + "." + "bmp")
 
@@ -118,7 +122,7 @@ def seleccionar_funcion():
                 pass
 
         elif combo_sel1 == "DES" and combo_sel2 == "CFB":
-            
+
             if combo_sel3 == "Cipher":
                 im = Image.open(filename)
                 value_vector = im.convert("RGB").tobytes()
@@ -136,7 +140,7 @@ def seleccionar_funcion():
                 # Save the object as an image in the corresponding format
                 file =  os.path.splitext(filename)
                 im2.save(file[0] + "_eCFB" + "." + "bmp")
-                
+
             elif combo_sel2 == "Decipher":
                 pass
 
@@ -158,7 +162,7 @@ def seleccionar_funcion():
                 # Save the object as an image in the corresponding format
                 file =  os.path.splitext(filename)
                 im2.save(file[0] + "_eOFB" + "." + "bmp")
-            
+
             elif combo_sel2 == "Decipher":
                 pass
 
@@ -182,7 +186,7 @@ def seleccionar_funcion():
                 im2.save(file[0] + "_eCTR" + "." + "bmp")
             elif combo_sel2 == "Decipher":
                 pass
-        
+
         else:
             messagebox.showinfo("Error ","You must select an option")
 
@@ -206,21 +210,21 @@ def des_ecb_encrypt(key, data, mode=DES.MODE_ECB):
     return new_data
 
 def des_cfb_encrypt(key, data, mode=DES.MODE_CFB):
-    
+
     IV = key_generator(8)
     des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
     new_data = des.encrypt(data)
     return new_data
 
 def des_ofb_encrypt(key, data, mode=DES.MODE_OFB):
-    
+
     IV = key_generator(8)
     des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
     new_data = des.encrypt(data)
     return new_data
 
 def des_ctr_encrypt(key, data, mode=DES.MODE_CTR):
-    
+
     IV = key_generator(8)
     des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
     new_data = des.encrypt(data)
