@@ -146,7 +146,7 @@ def pad(data):
 def des_cbc_encrypt(key, data, mode=DES.MODE_CBC):
     #IV is a random value
     IV = key_generator(8)
-    des = DES.new(key, mode, IV)
+    des = DES.new(key.encode("utf8"), mode, IV.encode("utf8"))
     new_data = des.encrypt(data)
     return new_data
 
@@ -154,7 +154,7 @@ def des_cbc_encrypt(key, data, mode=DES.MODE_CBC):
 # ECB encryption
 def des_ecb_encrypt(key, data, mode=DES.MODE_ECB):
     #The default mode is ECB encryption
-    des = DES.new(key, mode)
+    des = DES.new(key.encode("utf8"), mode)
     new_data = des.encrypt(data)
     return new_data
 
