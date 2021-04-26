@@ -2,15 +2,16 @@ from tkinter import *
 from tkinter import messagebox, filedialog
 from tkinter import ttk
 from Crypto.Cipher import DES
+from PIL import Image
 import tkinter as tk
-import math
 import random
+import string
 
 raiz=Tk()
 raiz.title("Cipher Operation Modes")
 raiz.resizable(0,0)
 # raiz.iconbitmap("huella.ico")
-raiz.geometry("550x250")
+raiz.geometry("600x250")
 raiz.config(bg="cyan")
 
 myFrame=Frame()
@@ -31,19 +32,19 @@ widgeti.place(x=350,y=5)
 text1 = Label(text="Escuela Superior de Computo\n Oswaldo Aguilar Martinez\n Miguel Angel Arevalo Andrade")
 text1.place(x=125,y=7)
 combo=ttk.Combobox(raiz)
-combo.place(x=315,y=130)
+combo.place(x=330,y=130)
 text2= Label(text="Cipher mode")
 text2.place(x=240,y=130)
 combo['values']=('AES','DES')
 combo2=ttk.Combobox(raiz)
 text3= Label(text="Operation mode")
 text3.place(x=240,y=160)
-combo2.place(x=315,y=160)
+combo2.place(x=350,y=160)
 combo2['values']=('ECB','CBC', 'CFB','OFB','CTR',)
 combo3=ttk.Combobox(raiz)
 text6= Label(text="Ciphered or Deciphered")
 text6.place(x=240,y=200)
-combo3.place(x=315,y=200)
+combo3.place(x=400,y=200)
 combo3['values']=('Cipher','Decipher')
 text4=Label(raiz, text = "Key:")
 text4.place(x=10,y=160)
@@ -58,8 +59,9 @@ def seleccionar_funcion():
         combo_sel1 = combo.get()
         combo_sel2 = combo2.get()
         combo_sel3 = combo3.get()
-        keyword = str(blank1.get())
+        key = str(blank1.get())
         vector = str(blank2.get())
+        correctKey(key)
        
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
             if combo_sel3 == "Cipher":
@@ -95,6 +97,15 @@ def seleccionar_funcion():
         else:
             messagebox.showinfo("Error ","You must select an option")
         
+def key_generator(size = 8, chars = string.ascii_lowercase):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+def correctKey(key):
+    if len(key) == 8:
+        pass
+    else:
+        messagebox.showinfo("Error ","Unvalid key")
+
 
 def abrirArchivo_a_Usar():
     raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
