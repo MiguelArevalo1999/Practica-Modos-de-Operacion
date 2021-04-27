@@ -110,6 +110,8 @@ def seleccionar_funcion():
                 # Save the object as an image in the corresponding format
                 im2.save(file[0] + "_eECB" + "." + "bmp")
             elif combo_sel3 == "Decipher":
+                if "ECB" not in filename:
+                    messagebox.showinfo("Error ","Decipher mode not allowed")
                 im = Image.open(filename1)
                  #Convert image data into pixel value bytes
                 value_vector = im.convert("RGB").tobytes()
@@ -147,6 +149,8 @@ def seleccionar_funcion():
                 im2.save(file[0] + "_eCBC" + "." + "bmp")
 
             elif combo_sel3 == "Decipher":
+                if "CBC" not in filename:
+                    messagebox.showinfo("Error ","Decipher mode not allowed")
                 im = Image.open(filename2)
                 value_vector = im.convert("RGB").tobytes()
 
@@ -184,6 +188,8 @@ def seleccionar_funcion():
                 im2.save(file[0] + "_eCFB" + "." + "bmp")
 
             elif combo_sel3 == "Decipher":
+                    if "CFB" not in filename:
+                        messagebox.showinfo("Error ","Decipher mode not allowed")
                     im = Image.open(filename3)
                     value_vector = im.convert("RGB").tobytes()
 
@@ -218,6 +224,8 @@ def seleccionar_funcion():
                 im2.save(file[0] + "_eOFB" + "." + "bmp")
 
             elif combo_sel3 == "Decipher":
+                if "OFB" not in filename:
+                        messagebox.showinfo("Error ","Decipher mode not allowed")
                 im = Image.open(filename4)
                 value_vector = im.convert("RGB").tobytes()
                 # Convert image data to pixel value bytes
@@ -253,6 +261,8 @@ def seleccionar_funcion():
                 file =  os.path.splitext(filename)
                 im2.save(file[0] + "_eCTR" + "." + "bmp")
             elif combo_sel3 == "Decipher":
+                if "CTR" not in filename:
+                        messagebox.showinfo("Error ","Decipher mode not allowed")
                 im = Image.open(filename5)
                 value_vector = im.convert("RGB").tobytes()
 
