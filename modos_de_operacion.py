@@ -7,8 +7,6 @@ import tkinter as tk
 import random
 import string
 import os
-from pathlib import Path
-
 
 filename = None
 
