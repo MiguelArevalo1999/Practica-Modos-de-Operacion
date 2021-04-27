@@ -82,7 +82,6 @@ def seleccionar_funcion():
         key = str(blank1.get())
         vector = str(blank2.get())
         global filename
-        filename = "Imagen2.bmp"
         # filename=os.path.basename(ruta)
         # filename1=os.path.basename(ruta1)
         # filename2=os.path.basename(ruta2)
