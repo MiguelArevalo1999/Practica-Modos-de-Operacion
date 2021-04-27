@@ -74,13 +74,13 @@ def seleccionar_funcion():
         combo_sel3 = combo3.get()
         key = str(blank1.get())
         vector = str(blank2.get())
-        #filename = "Imagen1.bmp" #Aqui tirame paro jaja para obtener el nombre del archivo seleccionado y que se guarde en filename
-        filename=os.path.basename(ruta)
-        filename1=os.path.basename(ruta1)
-        filename2=os.path.basename(ruta2)
-        filename3=os.path.basename(ruta3)
-        filename4=os.path.basename(ruta4)
-        filename5=os.path.basename(ruta5)
+        filename = "Imagen1.bmp" #Aqui tirame paro jaja para obtener el nombre del archivo seleccionado y que se guarde en filename
+        # filename=os.path.basename(ruta)
+        # filename1=os.path.basename(ruta1)
+        # filename2=os.path.basename(ruta2)
+        # filename3=os.path.basename(ruta3)
+        # filename4=os.path.basename(ruta4)
+        # filename5=os.path.basename(ruta5)
         #print(filename)
         correctKey(key)
         if combo_sel1 == "DES" and combo_sel2 == "ECB":
@@ -322,13 +322,12 @@ def des_ofb_desencrypt(key, data, IV, mode=DES.MODE_OFB):
     return new_data
 
 def des_ctr_encrypt(key, data, mode=DES.MODE_CTR):
-    IV = key_generator(8)
-    des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
+    des = DES.new(key.encode("utf8"), mode,nonce=b'')
     new_data = des.encrypt(data)
     return new_data
 
 def des_ctr_desencrypt(key, data, IV, mode=DES.MODE_CTR):
-    des = DES.new(key.encode("utf8"), mode,IV.encode("utf8"))
+    des = DES.new(key.encode("utf8"), mode)
     new_data = des.decrypt(data)
     return new_data
 
