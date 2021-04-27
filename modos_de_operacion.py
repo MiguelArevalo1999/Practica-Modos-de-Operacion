@@ -7,16 +7,24 @@ import tkinter as tk
 import random
 import string
 import os
+from pathlib import Path
+
+
+filename = None
 
 def abrirArchivo_a_Usar():
-    raiz.archivo=filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
+    global filename
+    filename = filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
+    head, tail = os.path.split(filename)
+    filename = tail
+    
 
-ruta= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1.bmp'
-ruta1= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eECB.bmp'
-ruta2= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCBC.bmp'
-ruta3= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCFB.bmp'
-ruta4= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eOFB.bmp'
-ruta5= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCTR.bmp'
+# ruta= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1.bmp'
+# ruta1= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eECB.bmp'
+# ruta2= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCBC.bmp'
+# ruta3= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCFB.bmp'
+# ruta4= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eOFB.bmp'
+# ruta5= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eCTR.bmp'
 raiz=Tk()
 raiz.title("Cipher Operation Modes")
 raiz.resizable(0,0)
@@ -74,7 +82,7 @@ def seleccionar_funcion():
         combo_sel3 = combo3.get()
         key = str(blank1.get())
         vector = str(blank2.get())
-        filename = "Imagen1.bmp" #Aqui tirame paro jaja para obtener el nombre del archivo seleccionado y que se guarde en filename
+        global filename
         # filename=os.path.basename(ruta)
         # filename1=os.path.basename(ruta1)
         # filename2=os.path.basename(ruta2)
