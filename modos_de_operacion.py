@@ -112,7 +112,7 @@ def seleccionar_funcion():
             elif combo_sel3 == "Decipher":
                 if "ECB" not in filename:
                     messagebox.showinfo("Error ","Decipher mode not allowed")
-                im = Image.open(filename1)
+                im = Image.open(filename)
                  #Convert image data into pixel value bytes
                 value_vector = im.convert("RGB").tobytes()
                 imlength = len(value_vector)
@@ -122,7 +122,7 @@ def seleccionar_funcion():
                  #Create a new object, store the corresponding value
                 im2 = Image.new(im.mode, im.size)
                 im2.putdata(value_desencrypt)
-                file =  os.path.splitext(filename1)
+                file =  os.path.splitext(filename)
 
                 # Save the object as an image in the corresponding format
                 im2.save(file[0] + "_dECB" + "." + "bmp")
@@ -151,7 +151,7 @@ def seleccionar_funcion():
             elif combo_sel3 == "Decipher":
                 if "CBC" not in filename:
                     messagebox.showinfo("Error ","Decipher mode not allowed")
-                im = Image.open(filename2)
+                im = Image.open(filename)
                 value_vector = im.convert("RGB").tobytes()
 
                 # Convert image data to pixel value bytes
@@ -166,7 +166,7 @@ def seleccionar_funcion():
                 im2.putdata(value_desencrypt)
 
                 # Save the object as an image in the corresponding format
-                file =  os.path.splitext(filename2)
+                file =  os.path.splitext(filename)
                 im2.save(file[0] + "_dCBC" + "." + "bmp")
         elif combo_sel1 == "DES" and combo_sel2 == "CFB":
             if combo_sel3 == "Cipher":
@@ -190,7 +190,7 @@ def seleccionar_funcion():
             elif combo_sel3 == "Decipher":
                     if "CFB" not in filename:
                         messagebox.showinfo("Error ","Decipher mode not allowed")
-                    im = Image.open(filename3)
+                    im = Image.open(filename)
                     value_vector = im.convert("RGB").tobytes()
 
                     # Convert image data to pixel value bytes
@@ -204,7 +204,7 @@ def seleccionar_funcion():
                     im2.putdata(value_desencrypt)
 
                     # Save the object as an image in the corresponding format
-                    file =  os.path.splitext(filename3)
+                    file =  os.path.splitext(filename)
                     im2.save(file[0] + "_dCFB" + "." + "bmp")
         elif combo_sel1 == "DES" and combo_sel2 == "OFB":
             if combo_sel3 == "Cipher":
@@ -225,7 +225,7 @@ def seleccionar_funcion():
             elif combo_sel3 == "Decipher":
                 if "OFB" not in filename:
                         messagebox.showinfo("Error ","Decipher mode not allowed")
-                im = Image.open(filename4)
+                im = Image.open(filename)
                 value_vector = im.convert("RGB").tobytes()
                 # Convert image data to pixel value bytes
                 imlength = len(value_vector)
@@ -238,7 +238,7 @@ def seleccionar_funcion():
                 im2.putdata(value_desencrypt)
 
                 # Save the object as an image in the corresponding format
-                file =  os.path.splitext(filename4)
+                file =  os.path.splitext(filename)
                 im2.save(file[0] + "_dOFB" + "." + "bmp")
         elif combo_sel1 == "DES" and combo_sel2 == "CTR":
             if combo_sel3 == "Cipher":
