@@ -15,6 +15,7 @@ def abrirArchivo_a_Usar():
     filename = filedialog.askopenfilename(initialdir="C:",title = "Select an image to cipher",filetypes=(("bmp files","*.bmp"),("all files","*.*")))
     head, tail = os.path.split(filename)
     filename = tail
+    print(filename)
     
 
 # ruta= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1.bmp'
@@ -81,6 +82,7 @@ def seleccionar_funcion():
         key = str(blank1.get())
         vector = str(blank2.get())
         global filename
+        filename = "Imagen2.bmp"
         # filename=os.path.basename(ruta)
         # filename1=os.path.basename(ruta1)
         # filename2=os.path.basename(ruta2)
