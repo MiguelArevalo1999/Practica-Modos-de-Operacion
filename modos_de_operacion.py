@@ -16,7 +16,7 @@ def abrirArchivo_a_Usar():
     head, tail = os.path.split(filename)
     filename = tail
     print(filename)
-    
+
 
 # ruta= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1.bmp'
 # ruta1= r'C:\Users\helbo\OneDrive\Documentos\GitHub\Practica-Modos-de-Operacion\Imagen1_eECB.bmp'
@@ -210,7 +210,6 @@ def seleccionar_funcion():
             if combo_sel3 == "Cipher":
                 im = Image.open(filename)
                 value_vector = im.convert("RGB").tobytes()
-
                 # Convert image data to pixel value bytes
                 imlength = len(value_vector)
                 # Perform pixel value mapping on the filled and encrypted data
@@ -261,25 +260,25 @@ def seleccionar_funcion():
                 file =  os.path.splitext(filename)
                 im2.save(file[0] + "_eCTR" + "." + "bmp")
             elif combo_sel3 == "Decipher":
-                if "CTR" not in filename:
-                        messagebox.showinfo("Error ","Decipher mode not allowed")
-                im = Image.open(filename5)
+                im = Image.open(filename)
                 value_vector = im.convert("RGB").tobytes()
 
                 # Convert image data to pixel value bytes
                 imlength = len(value_vector)
 
                 # Perform pixel value mapping on the filled and encrypted data
-                val=des_ctr_desencrypt(key, pad(value_vector),IV)
-                value_desencrypt = trans_format_RGB(val[:imlength])
-
+                value_encrypt = trans_format_RGB(des_ctr_desencrypt(key, pad(value_vector))[:imlength])
+                #val, IV=des_ofb_encrypt(key, pad(value_vector))
+                #value_encrypt = trans_format_RGB(val[:imlength])
                 # Create a new object, store the corresponding value
                 im2 = Image.new(im.mode, im.size)
-                im2.putdata(value_desencrypt)
+                im2.putdata(value_encrypt)
 
                 # Save the object as an image in the corresponding format
-                file =  os.path.splitext(filename5)
+                file =  os.path.splitext(filename)
                 im2.save(file[0] + "_dCTR" + "." + "bmp")
+                if "CTR" not in filename:
+                        messagebox.showinfo("Error ","Decipher mode not allowed")
         else:
             messagebox.showinfo("Error ","You must select an option")
 
@@ -343,8 +342,8 @@ def des_ctr_encrypt(key, data, mode=DES.MODE_CTR):
     new_data = des.encrypt(data)
     return new_data
 
-def des_ctr_desencrypt(key, data, IV, mode=DES.MODE_CTR):
-    des = DES.new(key.encode("utf8"), mode)
+def des_ctr_desencrypt(key, data, mode=DES.MODE_CTR):
+    des = DES.new(key.encode("utf8"), mode,nonce=b'')
     new_data = des.decrypt(data)
     return new_data
 
